@@ -27,7 +27,7 @@ public class TreeCollider : MonoBehaviour
     //[SerializeField] InventoryItem branchItem;
 
     //the prefab that is instantiated when the tree is fully cut down.
-    //You can use this or grab the prefab from the terrain. Please see the comments in the RemoveTreeFromTerrain() method.
+    //You can use this or grab the prefab from the terrain. Please see the comments in the SpawnFelledTreePrefab() method.
     //as the script comes it gets the terrain tree prefab from the terrain.
     public GameObject fallenTreeePrefab;
 
