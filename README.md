@@ -3,7 +3,7 @@ Tree chopping system for unity.
 
 Created using unity 6.
 
-Adds tree colliders within a radius of the player as he/she moves around your game world.
+Adds and removes tree colliders within a radius of the player as he/she moves around your game world.
 Upon felling a tree, a prefab of the same treee will be instantiated, a collider and rigidbody be added and configured and the original tree is removed from the terrain.
 
 To Use:
