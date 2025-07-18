@@ -9,6 +9,7 @@ using UnityEngine;
 /// 
 /// /// YOU MUST REMOVE THE COLLIDERS THAT WILL BE ATTACHED TO YOUR TREE PREFABS PLACED ON YOUR TERRAIN.
 /// This system relies on using its own colliders, it will not work with unity tree colliders.
+/// Add this script to a gameobject and fill out the settings/prefab references.
 /// </summary>
 public class TreeColliderManager : MonoBehaviour
 {
@@ -42,11 +43,11 @@ public class TreeColliderManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds and removes the tree collider prefabs at an interval set with the update interval variable.
+    /// Adds and removes the tree collider prefabs at an interval set with the updateInterval variable.
     /// </summary>
     void UpdateTreeColliders()
     {
-        //make sure you assign the player in the inspector or add an Awake() method and assing it, otherwise this script will silently do nothing.
+        //make sure you assign the player in the inspector or add an Awake() method and adding it, otherwise this script will silently do nothing.
         if (player == null) return;
 
         foreach (Terrain terrain in Terrain.activeTerrains)
@@ -54,13 +55,16 @@ public class TreeColliderManager : MonoBehaviour
             TerrainData data = terrain.terrainData;
             TreeInstance[] trees = data.treeInstances;
 
+            //check each tree
             foreach (TreeInstance tree in trees)
             {
                 Vector3 worldPos = Vector3.Scale(tree.position, data.size) + terrain.transform.position;
                 float dist = Vector3.Distance(worldPos, player.position);
 
+                //if it's within range, spawn a collider prefab on it.
                 if (dist < spawnRadius)
                 {
+                    
                     if (!activeColliders.ContainsKey(worldPos))
                     {
                         GameObject colliderObj = Instantiate(treeColliderPrefab, worldPos, Quaternion.identity);
@@ -70,7 +74,7 @@ public class TreeColliderManager : MonoBehaviour
                 }
             }
         }
-
+        // Find any trees which are too far away from the player and remove them.
         List<Vector3> toRemove = new();
         foreach (var kvp in activeColliders)
         {
